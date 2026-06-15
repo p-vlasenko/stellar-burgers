@@ -34,7 +34,7 @@ const createSliceWithThunks = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator }
 });
 
-const USER_SLICE_NAME = 'user';
+const AUTH_SLICE_NAME = 'auth';
 
 const getErrorMessage = (err: unknown, fallback: string) => {
   const { message } = err as Error;
@@ -58,10 +58,11 @@ const setRejectedState = (
 
 export const makeAuthSlice = (state = getInitialState()) =>
   createSliceWithThunks({
-    name: USER_SLICE_NAME,
+    name: AUTH_SLICE_NAME,
     initialState: state,
     selectors: {
       selectUser: (state) => state.user,
+      selectAuthError: (state) => state.error,
       selectAccessToken: (state) => state.accessToken,
       selectIsAuthChecked: (state) => state.isAuthChecked
     },
@@ -283,13 +284,17 @@ export const authSlice = makeAuthSlice();
 
 export const {
   register: registerUser,
-  login: loginUser,
+  login,
+  logout,
   fetch: fetchUser,
   update: updateUser,
-  logout: logoutUser,
   forgotPassword,
   resetPassword
 } = authSlice.actions;
 
-export const { selectUser, selectAccessToken, selectIsAuthChecked } =
-  authSlice.selectors;
+export const {
+  selectUser,
+  selectAccessToken,
+  selectIsAuthChecked,
+  selectAuthError
+} = authSlice.selectors;
