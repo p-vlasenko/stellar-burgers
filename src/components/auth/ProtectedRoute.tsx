@@ -1,11 +1,19 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { getCookie } from '../../utils/cookie';
+import { useSelector } from 'react-redux';
+import {
+  selectAccessToken,
+  selectIsAuthChecked
+} from '@slices/auth/auth-slice';
+import { Preloader } from '../ui/preloader/preloader';
 
 export function ProtectedRoute() {
-  const isAuthenticated =
-    Boolean(getCookie('accessToken')) ||
-    Boolean(localStorage.getItem('refreshToken'));
+  const accessToken = useSelector(selectAccessToken);
+  const isAuthChecked = useSelector(selectIsAuthChecked);
 
-  return isAuthenticated ? <Outlet /> : <Navigate to='/login' replace />;
+  if (!isAuthChecked) {
+    return <Preloader />;
+  }
+
+  return accessToken ? <Outlet /> : <Navigate to='/login' replace />;
 }
