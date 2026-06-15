@@ -118,12 +118,16 @@ const findOrderByItemNumber = (orders: TOrder[], itemNum: number) =>
   orders.find((item) => item.number === itemNum);
 
 type InfoSelector = (
-  itemNum: number
+  itemNum?: number
 ) => (store: RootState) => TOrder | undefined;
 
 export const ordersInfoDataSelector: InfoSelector =
   (itemNum) =>
   ({ profileOrders, feed }) => {
+    if (itemNum === undefined) {
+      return undefined;
+    }
+
     const { currentOrder } = profileOrders;
 
     if (currentOrder?.number === itemNum) {
