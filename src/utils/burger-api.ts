@@ -1,14 +1,33 @@
+import {
+  ForgotPassword,
+  GetFeeds,
+  GetOrderByNumber,
+  GetOrders,
+  Logout,
+  OrderBurger,
+  ResetPassword,
+  TFeedsResponse,
+  UpdateUser
+} from '@utils-types';
 import { setCookie, getCookie } from './cookie';
-import { TIngredient, TOrder, TOrdersData, TUser } from './types';
+import {
+  GetIngredients,
+  GetUser,
+  Login,
+  RegisterUser,
+  TAuthResponse,
+  TIngredient,
+  TServerResponse,
+  TUserResponse
+} from './types';
+import { TNewOrderResponse } from '@utils-types';
+import { TOrderResponse } from '@utils-types';
 
-const URL = process.env.BURGER_API_URL;
+const URL =
+  process.env.BURGER_API_URL || 'https://norma.education-services.ru/api';
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-
-type TServerResponse<T> = {
-  success: boolean;
-} & T;
 
 type TRefreshResponse = TServerResponse<{
   refreshToken: string;
@@ -45,10 +64,12 @@ export const fetchWithRefresh = async <T>(
   } catch (err) {
     if ((err as { message: string }).message === 'jwt expired') {
       const refreshData = await refreshToken();
+
       if (options.headers) {
         (options.headers as { [key: string]: string }).authorization =
           refreshData.accessToken;
       }
+
       const res = await fetch(url, options);
       return await checkResponse<T>(res);
     } else {
@@ -61,17 +82,7 @@ type TIngredientsResponse = TServerResponse<{
   data: TIngredient[];
 }>;
 
-type TFeedsResponse = TServerResponse<{
-  orders: TOrder[];
-  total: number;
-  totalToday: number;
-}>;
-
-type TOrdersResponse = TServerResponse<{
-  data: TOrder[];
-}>;
-
-export const getIngredientsApi = () =>
+export const getIngredients: GetIngredients = () =>
   fetch(`${URL}/ingredients`)
     .then((res) => checkResponse<TIngredientsResponse>(res))
     .then((data) => {
@@ -79,7 +90,7 @@ export const getIngredientsApi = () =>
       return Promise.reject(data);
     });
 
-export const getFeedsApi = () =>
+export const getFeeds: GetFeeds = () =>
   fetch(`${URL}/orders/all`)
     .then((res) => checkResponse<TFeedsResponse>(res))
     .then((data) => {
@@ -87,7 +98,7 @@ export const getFeedsApi = () =>
       return Promise.reject(data);
     });
 
-export const getOrdersApi = () =>
+export const getOrders: GetOrders = () =>
   fetchWithRefresh<TFeedsResponse>(`${URL}/orders`, {
     method: 'GET',
     headers: {
@@ -99,30 +110,7 @@ export const getOrdersApi = () =>
     return Promise.reject(data);
   });
 
-type TOwner = {
-  name: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type TNewOrder = {
-  _id: string;
-  status: string;
-  name: string;
-  owner: TOwner;
-  createdAt: string;
-  updatedAt: string;
-  number: number;
-  price: number;
-};
-
-type TNewOrderResponse = TServerResponse<{
-  order: TNewOrder;
-  name: string;
-}>;
-
-export const orderBurgerApi = (data: string[]) =>
+export const orderBurger: OrderBurger = (data: string[]) =>
   fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
     method: 'POST',
     headers: {
@@ -137,11 +125,7 @@ export const orderBurgerApi = (data: string[]) =>
     return Promise.reject(data);
   });
 
-type TOrderResponse = TServerResponse<{
-  orders: TOrder[];
-}>;
-
-export const getOrderByNumberApi = (number: number) =>
+export const getOrderByNumber: GetOrderByNumber = (number: number) =>
   fetch(`${URL}/orders/${number}`, {
     method: 'GET',
     headers: {
@@ -149,19 +133,7 @@ export const getOrderByNumberApi = (number: number) =>
     }
   }).then((res) => checkResponse<TOrderResponse>(res));
 
-export type TRegisterData = {
-  email: string;
-  name: string;
-  password: string;
-};
-
-type TAuthResponse = TServerResponse<{
-  refreshToken: string;
-  accessToken: string;
-  user: TUser;
-}>;
-
-export const registerUserApi = (data: TRegisterData) =>
+export const registerUser: RegisterUser = (data) =>
   fetch(`${URL}/auth/register`, {
     method: 'POST',
     headers: {
@@ -175,12 +147,7 @@ export const registerUserApi = (data: TRegisterData) =>
       return Promise.reject(data);
     });
 
-export type TLoginData = {
-  email: string;
-  password: string;
-};
-
-export const loginUserApi = (data: TLoginData) =>
+export const login: Login = (data) =>
   fetch(`${URL}/auth/login`, {
     method: 'POST',
     headers: {
@@ -194,7 +161,7 @@ export const loginUserApi = (data: TLoginData) =>
       return Promise.reject(data);
     });
 
-export const forgotPasswordApi = (data: { email: string }) =>
+export const forgotPassword: ForgotPassword = (data) =>
   fetch(`${URL}/password-reset`, {
     method: 'POST',
     headers: {
@@ -208,7 +175,7 @@ export const forgotPasswordApi = (data: { email: string }) =>
       return Promise.reject(data);
     });
 
-export const resetPasswordApi = (data: { password: string; token: string }) =>
+export const resetPassword: ResetPassword = (data) =>
   fetch(`${URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -222,16 +189,14 @@ export const resetPasswordApi = (data: { password: string; token: string }) =>
       return Promise.reject(data);
     });
 
-type TUserResponse = TServerResponse<{ user: TUser }>;
-
-export const getUserApi = () =>
+export const getUser: GetUser = () =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {
     headers: {
       authorization: getCookie('accessToken')
     } as HeadersInit
   });
 
-export const updateUserApi = (user: Partial<TRegisterData>) =>
+export const updateUser: UpdateUser = (user) =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -241,7 +206,7 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
     body: JSON.stringify(user)
   });
 
-export const logoutApi = () =>
+export const logout: Logout = () =>
   fetch(`${URL}/auth/logout`, {
     method: 'POST',
     headers: {
