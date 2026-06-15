@@ -16,8 +16,11 @@ export const IngredientsCategory = forwardRef<
     const counters: Record<string, number> = {};
 
     constructorIngredients.forEach((ingredient: TIngredient) => {
-      const count = counters[ingredient._id];
-      counters[ingredient._id] = !count ? 0 : count + 1;
+      if (!counters[ingredient._id]) {
+        counters[ingredient._id] = 0;
+      }
+
+      counters[ingredient._id]++;
     });
 
     if (bun) {
