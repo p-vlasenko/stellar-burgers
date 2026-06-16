@@ -134,7 +134,7 @@ export const makeAuthSlice = (state = getInitialState()) =>
         }
       ),
 
-      fetch: create.asyncThunk<void, TUser, RejectsToStr & GetUserExtra>(
+      fetchUser: create.asyncThunk<void, TUser, RejectsToStr & GetUserExtra>(
         async (_, { rejectWithValue, extra: { getUser } }) => {
           try {
             const res = await getUser();
@@ -166,7 +166,7 @@ export const makeAuthSlice = (state = getInitialState()) =>
         }
       ),
 
-      update: create.asyncThunk<
+      updateUser: create.asyncThunk<
         Partial<TRegisterData>,
         TUser,
         RejectsToStr & UpdateUserExtra
@@ -283,11 +283,11 @@ export const makeAuthSlice = (state = getInitialState()) =>
 export const authSlice = makeAuthSlice();
 
 export const {
-  register: registerUser,
+  register,
   login,
   logout,
-  fetch: fetchUser,
-  update: updateUser,
+  fetchUser,
+  updateUser,
   forgotPassword,
   resetPassword
 } = authSlice.actions;

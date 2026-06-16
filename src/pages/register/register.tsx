@@ -3,7 +3,7 @@ import { RegisterUI } from '@ui-pages';
 
 import { useDispatch } from '@store';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { registerUser, selectAuthError } from '@slices/auth/auth-slice';
+import { register, selectAuthError } from '@slices/auth/auth-slice';
 import { useSelector } from 'react-redux';
 
 type LocationState = {
@@ -28,7 +28,7 @@ export const Register: FC = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    const action = registerUser({
+    const action = register({
       email,
       password,
       name: userName
