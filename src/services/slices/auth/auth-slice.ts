@@ -67,6 +67,12 @@ export const makeAuthSlice = (state = getInitialState()) =>
       selectIsAuthChecked: (state) => state.isAuthChecked
     },
     reducers: (create) => ({
+      authChecked: create.reducer((state) => {
+        state.isAuthChecked = true;
+        state.isLoading = false;
+        state.error = undefined;
+      }),
+
       register: create.asyncThunk<
         TRegisterData,
         TAuthResponse,
@@ -162,6 +168,15 @@ export const makeAuthSlice = (state = getInitialState()) =>
               action.payload,
               'Ошибка получения пользователя'
             );
+          },
+          options: {
+            condition: (_, { getState }) => {
+              const { auth } = getState() as { auth: TState };
+
+              return (
+                !!auth.accessToken && !auth.isAuthChecked && !auth.isLoading
+              );
+            }
           }
         }
       ),
@@ -287,6 +302,7 @@ export const {
   login,
   logout,
   fetchUser,
+  authChecked,
   updateUser,
   forgotPassword,
   resetPassword
