@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { useSelector } from '@store';
 import {
@@ -10,10 +10,15 @@ import { Preloader } from '../ui/preloader/preloader';
 export function ProtectedRoute() {
   const accessToken = useSelector(selectAccessToken);
   const isAuthChecked = useSelector(selectIsAuthChecked);
+  const location = useLocation();
 
   if (!isAuthChecked) {
     return <Preloader />;
   }
 
-  return accessToken ? <Outlet /> : <Navigate to='/login' replace />;
+  return accessToken ? (
+    <Outlet />
+  ) : (
+    <Navigate to='/login' replace state={{ from: location }} />
+  );
 }
