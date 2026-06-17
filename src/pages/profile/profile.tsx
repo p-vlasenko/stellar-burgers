@@ -1,11 +1,16 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from '@store';
-import { selectUser, updateUser } from '@slices/auth/auth-slice';
+import {
+  selectAuthError,
+  selectUser,
+  updateUser
+} from '@slices/auth/auth-slice';
 
 export const Profile: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const updateUserError = useSelector(selectAuthError);
 
   const [formValue, setFormValue] = useState({
     name: user?.name ?? '',
@@ -43,8 +48,15 @@ export const Profile: FC = () => {
       payload.password = formValue.password;
     }
 
-    dispatch(updateUser(payload));
-    setFormValue((prev) => ({ ...prev, password: '' }));
+    dispatch(updateUser(payload)).then((result) => {
+      if (updateUser.fulfilled.match(result)) {
+        setFormValue({
+          name: result.payload.name,
+          email: result.payload.email,
+          password: ''
+        });
+      }
+    });
   };
 
   const handleCancel = (e: SyntheticEvent) => {
@@ -68,6 +80,7 @@ export const Profile: FC = () => {
     <ProfileUI
       formValue={formValue}
       isFormChanged={isFormChanged}
+      updateUserError={updateUserError}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
