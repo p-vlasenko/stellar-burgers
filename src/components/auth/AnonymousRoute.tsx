@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useSelector } from '@store';
 import {
   selectAccessToken,
   selectIsAuthChecked

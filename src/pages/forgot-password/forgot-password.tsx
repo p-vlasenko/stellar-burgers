@@ -1,6 +1,6 @@
 import { FC, useState, SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '@store';
 
 import { ForgotPasswordUI } from '@ui-pages';
 import { useDispatch } from '@store';

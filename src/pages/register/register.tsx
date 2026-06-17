@@ -4,7 +4,7 @@ import { RegisterUI } from '@ui-pages';
 import { useDispatch } from '@store';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { register, selectAuthError } from '@slices/auth/auth-slice';
-import { useSelector } from 'react-redux';
+import { useSelector } from '@store';
 
 type LocationState = {
   from?: {
