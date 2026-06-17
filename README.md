@@ -1,19 +1,17 @@
-# Проектная работа 11-го спринта
+# Проектная работа Stellar burger
 
-[Макет](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>)
+[Макет](https://www.figma.com/design/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D1%8B%D0%B5-%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8--3-%D0%BC%D0%B5%D1%81%D1%8F%D1%86%D0%B0-_external_link?node-id=2-1&p=f)
 
-[Чеклист](https://www.notion.so/praktikum/0527c10b723d4873aa75686bad54b32e?pvs=4)
+[Чеклист](./docs/CHECK-LIST.md)
 
-## Этапы работы:
-
-1. Разверните проект и ознакомьтесь с кодом. Все необходимые вам компоненты уже созданы и лежат в папке `src/components`
-
-2. Настройте роутинг.
-
-3. Напишите функционал запросов данных с сервера, используя `Redux` и глобальный `store`. Сами "ручки" уже прописаны и лежат в `utils/burger-api.ts`
-
-4. Настройте авторизацию и создайте защищённые роуты.
+[Описание](./docs/DESCRIPTION.md)
 
 ## Важно:
 
-Для корректной работы запросов к серверу необходимо добавить переменную BURGER_API_URL в окружение. Сама ссылка находится в файле `.env.example`.
+Для корректной работы запросов к серверу необходимо добавить переменную BURGER_API_URL в окружение. Сама ссылка находится в файле `.env.example`. Можно использовать файл .env.
+
+# Dev запуск
+```bash
+npm i
+npm run start
+```
