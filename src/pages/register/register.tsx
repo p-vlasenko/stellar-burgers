@@ -34,8 +34,10 @@ export const Register: FC = () => {
       name: userName
     });
 
-    dispatch(action).then(() => {
-      navigate(from, { replace: true });
+    dispatch(action).then((result) => {
+      if (register.fulfilled.match(result)) {
+        navigate(from, { replace: true });
+      }
     });
   };
 

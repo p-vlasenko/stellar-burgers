@@ -15,9 +15,11 @@ export const ResetPassword: FC = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    dispatch(resetPassword({ password, token })).then(() => {
-      localStorage.removeItem('resetPassword');
-      navigate('/login');
+    dispatch(resetPassword({ password, token })).then((result) => {
+      if (resetPassword.fulfilled.match(result)) {
+        localStorage.removeItem('resetPassword');
+        navigate('/login');
+      }
     });
   };
 
