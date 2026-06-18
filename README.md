@@ -10,8 +10,19 @@
 
 Для корректной работы запросов к серверу необходимо добавить переменную BURGER_API_URL в окружение. Сама ссылка находится в файле `.env.example`. Можно использовать файл .env.
 
-# Dev запуск
+## Dev запуск
 ```bash
 npm i
 npm run start
+```
+## Tests
+
+1. jest
+```bash
+npm run test
+```
+2. cypress
+запустите приложение затем выполните:
+```bash
+npm run cypress:run
 ```
