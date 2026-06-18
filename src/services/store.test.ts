@@ -1,6 +1,6 @@
 import { UnknownAction } from '@reduxjs/toolkit';
 
-import store from './store';
+import { rootReducer } from './store';
 import { burgerConstructorSlice } from './slices/burger-constructor/burger-constructor-slice';
 import { ingredientsSlice } from './slices/ingredients/ingredients-slice';
 import { orderSlice } from './slices/order-slice/order-slice';
@@ -19,7 +19,7 @@ const actionStub: UnknownAction = { type: 'unknown' };
 
 describe('rootReducer', () => {
   it('returns the initial state for every slice', () => {
-    const state = store.getState();
+    const state = rootReducer(undefined, actionStub);
 
     expect(state.burgerConstructor).toEqual(
       reduceConstructorState(undefined, actionStub)

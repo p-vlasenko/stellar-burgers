@@ -25,7 +25,7 @@ import {
   updateUser
 } from '@api';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientsSlice.reducer,
   burgerConstructor: burgerConstructorSlice.reducer,
   order: orderSlice.reducer,
