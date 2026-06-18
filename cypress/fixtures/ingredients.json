@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "bun-1",
+      "name": "bun-name-1",
+      "type": "bun",
+      "price": 50,
+      "image": "bun-1.png"
+    },
+    {
+      "_id": "main-1",
+      "name": "main-name-1",
+      "type": "main",
+      "price": 100,
+      "image": "main-1.png"
+    },
+    {
+      "_id": "sauce-1",
+      "name": "sauce-name-1",
+      "type": "sauce",
+      "price": 10,
+      "image": "sauce-1.png"
+    }
+  ]
+}

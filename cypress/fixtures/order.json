@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "name": "test order name",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "bun-1",
+        "name": "bun-name-1",
+        "type": "bun",
+        "price": 321
+      },
+      {
+        "_id": "main-1",
+        "name": "main-name-1",
+        "type": "main",
+        "price": 123
+      },
+      {
+        "_id": "bun-1",
+        "name": "bun-name-1",
+        "type": "bun",
+        "price": 321
+      }
+    ],
+    "status": "done",
+    "name": "test order name",
+    "number": 100500,
+    "price": 765
+  }
+}
