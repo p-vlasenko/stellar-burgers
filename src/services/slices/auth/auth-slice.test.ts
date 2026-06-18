@@ -16,7 +16,7 @@ const reduce = authSlice.reducer;
 
 describe('authSlice', () => {
   it('returns the initial state for an unknown action', () => {
-    expect(reduce(undefined, { type: '' })).toEqual(initialState);
+    expect(reduce(undefined, { type: 'unknown' })).toEqual(initialState);
   });
 
   it('marks auth as checked and clears loading state', () => {

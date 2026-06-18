@@ -8,7 +8,7 @@ import {
 import { TOrder, TOrdersData } from '@utils-types';
 
 const reduce = feedSlice.reducer;
-const actionStub: UnknownAction = { type: '' };
+const actionStub: UnknownAction = { type: 'unknown' };
 
 const generateOrder = (
   overrides: Partial<TOrder> = {},

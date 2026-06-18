@@ -19,7 +19,7 @@ const {
   resetConstructor
 } = burgerConstructorSlice.actions;
 
-const actionStub: UnknownAction = { type: '' };
+const actionStub: UnknownAction = { type: 'unknown' };
 
 const generateIngredient = (
   overrides: Partial<TIngredient> = {},

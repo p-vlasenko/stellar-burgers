@@ -15,7 +15,7 @@ const reduceOrderState = orderSlice.reducer;
 const reduceFeedState = feedSlice.reducer;
 const reduceProfileOrdersState = profileOrdersSlice.reducer;
 
-const actionStub: UnknownAction = { type: '' };
+const actionStub: UnknownAction = { type: 'unknown' };
 
 describe('rootReducer', () => {
   it('returns the initial state for every slice', () => {

@@ -7,7 +7,7 @@ import {
 import { TIngredient } from '@utils-types';
 
 const reduce = ingredientsSlice.reducer;
-const actionStub: UnknownAction = { type: '' };
+const actionStub: UnknownAction = { type: 'unknown' };
 
 const generateIngredient = (
   overrides: Partial<TIngredient> = {},

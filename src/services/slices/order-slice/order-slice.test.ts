@@ -10,7 +10,7 @@ import {
 import { TOrder } from '@utils-types';
 
 const reduce = orderSlice.reducer;
-const actionStub: UnknownAction = { type: '' };
+const actionStub: UnknownAction = { type: 'unknown' };
 
 const generateOrder = (
   overrides: Partial<TOrder> = {},

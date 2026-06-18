@@ -8,7 +8,7 @@ import {
 import { TOrder } from '@utils-types';
 
 const reduce = profileOrdersSlice.reducer;
-const actionStub: UnknownAction = { type: '' };
+const actionStub: UnknownAction = { type: 'unknown' };
 
 const generateOrder = (
   overrides: Partial<TOrder> = {},
@@ -146,7 +146,7 @@ describe('profileOrdersSlice', () => {
 
     it('uses the default error when rejected has no payload', () => {
       const state = reduce(initialState, {
-        type: fetchProfileOrderByNumber.rejected.type,
+        type: fetchProfileOrderByNumber.rejected.type
       });
 
       expect(state).toEqual({
