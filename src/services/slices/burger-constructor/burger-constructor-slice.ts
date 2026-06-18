@@ -1,8 +1,8 @@
 import {
   asyncThunkCreator,
   buildCreateSlice,
-  PayloadAction,
-  nanoid
+  nanoid,
+  PayloadAction
 } from '@reduxjs/toolkit';
 import { TIngredient, TConstructorIngredient } from '@utils-types';
 
@@ -15,13 +15,24 @@ export const initialState: TConstructorState = {
   ingredients: []
 };
 
+type Deps = {
+  generateId: () => string;
+};
+
+const defaultDeps: Deps = {
+  generateId: nanoid
+};
+
 const createSliceWithThunks = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator }
 });
 
 const CONSTRUCTOR_SLICE_NAME = 'burgerConstructor';
 
-export const makeBurgerConstructorSlice = (state = initialState) =>
+export const makeBurgerConstructorSlice = (
+  state = initialState,
+  { generateId } = defaultDeps
+) =>
   createSliceWithThunks({
     name: CONSTRUCTOR_SLICE_NAME,
     initialState: state,
@@ -31,7 +42,7 @@ export const makeBurgerConstructorSlice = (state = initialState) =>
     reducers: (create) => ({
       addToConstructor: create.preparedReducer(
         (ingredient: TIngredient) => ({
-          payload: { ...ingredient, id: nanoid() }
+          payload: { ...ingredient, id: generateId() }
         }),
         (state, { payload }: PayloadAction<TConstructorIngredient>) => {
           if (payload.type === 'bun') {

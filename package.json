@@ -86,12 +86,29 @@
     "url-loader": "^4.1.1"
   },
   "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "start": "webpack serve --mode=development",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "test": "jest --env=jsdom",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier ./src --write"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@pages$": "<rootDir>/src/pages",
+      "^@components$": "<rootDir>/src/components",
+      "^@ui$": "<rootDir>/src/components/ui",
+      "^@ui-pages$": "<rootDir>/src/components/ui/pages",
+      "^@utils-types$": "<rootDir>/src/utils/types",
+      "^@api$": "<rootDir>/src/utils/burger-api.ts",
+      "^@slices$": "<rootDir>/src/services/slices",
+      "^@slices/(.*)$": "<rootDir>/src/services/slices/$1",
+      "^@store$": "<rootDir>/src/services/store.ts",
+      "^@selectors$": "<rootDir>/src/services/selectors"
+    }
   },
   "eslintConfig": {
     "extends": [

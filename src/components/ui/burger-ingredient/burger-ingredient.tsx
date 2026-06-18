@@ -1,6 +1,5 @@
-import React, { FC, memo } from 'react';
+import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './burger-ingredient.module.css';
 
 import {
   Counter,
@@ -10,12 +9,17 @@ import {
 
 import { TBurgerIngredientUIProps } from './type';
 
+import styles from './burger-ingredient.module.css';
+
 export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
   ({ ingredient, count, handleAdd, locationState }) => {
-    const { image, price, name, _id } = ingredient;
+    const { image, price, name, _id, type } = ingredient;
 
     return (
-      <li className={styles.container}>
+      <li
+        className={styles.container}
+        data-cy={type === 'bun' ? 'ingredient-bun' : 'ingredient-main'}
+      >
         <Link
           className={styles.article}
           to={`/ingredients/${_id}`}

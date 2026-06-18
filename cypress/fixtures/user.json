@@ -1,0 +1,8 @@
+{
+  "accessToken": "Bearer test-access-token",
+  "refreshToken": "test-refresh-token",
+  "user": {
+    "name": "John Doe",
+    "email": "doe@testmail.com"
+  }
+}

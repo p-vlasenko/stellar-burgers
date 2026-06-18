@@ -1,20 +1,21 @@
 import { FC, useMemo } from 'react';
 import { BurgerConstructorUI } from '@ui';
-import { useSelector, useDispatch } from '../../services/store';
+import { useNavigate, useLocation } from 'react-router-dom';
 
+import { selectAccessToken } from '@slices/auth/auth-slice';
+import {
+  constructorSelector,
+  resetConstructor
+} from '@slices/burger-constructor/burger-constructor-slice';
+import { TConstructorIngredient } from '@utils-types';
+
+import { useSelector, useDispatch } from '../../services/store';
 import {
   selectIsOrderLoading,
   selectCurrentOrder,
   closeOrderModal as closeOrderAction,
   createOrder
-} from '../../services/slices/orderSlice/orderSlice';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { TConstructorIngredient } from '@utils-types';
-import {
-  constructorSelector,
-  resetConstructor
-} from '@slices/burger-constructor/burger-constructor-slice';
-import { selectAccessToken } from '@slices/auth/auth-slice';
+} from '../../services/slices/order-slice/order-slice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
