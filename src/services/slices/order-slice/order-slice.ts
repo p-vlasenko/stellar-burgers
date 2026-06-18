@@ -6,7 +6,7 @@ import {
   RejectsToStr
 } from '../../types';
 
-type TOrderState = {
+export type TOrderState = {
   currentOrder?: TOrder;
   orderNumber?: number;
   isOrderLoading: boolean;
